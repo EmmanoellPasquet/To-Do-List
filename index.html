@@ -20,7 +20,12 @@
         <button class="btn-addTask"><i class="fa-solid fa-plus fa-beat-fade"></i></i></i></button>
       </div>
       <div class="taskList">
-        <p class="counter"></p>
+        <div class="counter opacity">
+          <p class="totalTasks"></p>
+          <p class="partialTasks"></p>
+          <p class="finishedTasks"></p>
+        </div>
+
         <ul class="tasks"></ul>
         <div class="btn-bottom">
           <label class="checkboxOuter hidden"><input type="checkbox" class="globalSelector"></label>
@@ -28,9 +33,14 @@
         </div>
       </div>
     </div>
-
-
   </section>
+  <div class="background hidden"></div>
+  <div class="pop-up no-show">
+    <p> Congrats you finished all of your tasks!</p>
+    <button class="popClose">Ok</button>
+  </div>
+
+
 
   <script src="./assets/js/main.js"></script>
   <script src="https://kit.fontawesome.com/a14a5540ab.js" crossorigin="anonymous"></script>
