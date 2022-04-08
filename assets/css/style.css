@@ -83,12 +83,80 @@ h1 {
 }
 
 .counter {
-  font-size: .55em;
+  font-size: .6em;
   text-align: right;
-  color: var(--primary-color);
+  color: #fff;
   text-transform: uppercase;
   font-weight: bold;
-  margin-right: 1.5em;
+  width: 80%;
+  margin: 2em auto;
+  display: flex;
+  justify-content: space-evenly;
+  color: #fff;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.pop-up {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  flex-direction: column;
+  background-color: #fff;
+  width: 350px;
+  height: 250px;
+  text-align: center;
+  padding: 2em;
+  border-radius: 10px;
+  margin: auto;
+  z-index: 50;
+  right: 0;
+  top: 250px;
+  left: 0;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0px 0px 100px 5px var(--primary-color-lighter);
+  transition: .6s;
+}
+
+.pop-up>p {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.1em;
+  width: 250px;
+}
+
+.popClose {
+  margin-top: 1em;
+  padding: 1em 3em;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  border-color: var(--primary-color-lighter);
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.background {
+  background: black;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  opacity: 0.8;
+}
+
+.totalTasks,
+.partialTasks,
+.finishedTasks {
+  padding: .1em .5em;
+  color: var(--remove-color);
+  background-color: #fff;
+  border-radius: 5px;
 }
 
 li {
@@ -176,6 +244,34 @@ ul {
   border: 2px solid var(--primary-color);
 }
 
+.deleteAll:hover {
+  border: 2px solid var(--primary-color);
+  background-color: transparent;
+}
+
+.deleteAll:hover:before {
+  content: 'Delete all';
+  animation-name: moveLeft;
+  animation-duration: .8s;
+  font-weight: bold;
+}
+
+.deleteAll:after {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font: var(--fa-font-solid);
+  content: "\f2ed";
+  color: var(--remove-color);
+  height: 20px;
+}
+
+.deleteAll:hover:after {
+  animation-name: rotateWhite;
+  animation-duration: 0.8s;
+  margin-left: .5em;
+}
+
 input[type="checkbox"] {
   width: 15px;
   height: 15px;
@@ -220,42 +316,16 @@ input:checked {
 }
 
 .checkboxOuter:hover:after {
-  content: 'Select all';
+  content: 'Check all';
   animation-name: moveLeft;
   animation-duration: .8s;
+  font-weight: bold;
 }
 
 .globalSelector {
   cursor: pointer;
   margin-right: 0.5em;
 
-}
-
-.deleteAll:hover {
-  border: 2px solid var(--primary-color);
-  background-color: transparent;
-}
-
-.deleteAll:hover:before {
-  content: 'Delete all';
-  animation-name: moveLeft;
-  animation-duration: .8s;
-}
-
-.deleteAll:after {
-  display: inline-block;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  font: var(--fa-font-solid);
-  content: "\f2ed";
-  color: var(--remove-color);
-  height: 20px;
-}
-
-.deleteAll:hover:after {
-  animation-name: rotateWhite;
-  animation-duration: 0.8s;
-  margin-left: .5em;
 }
 
 .btn-bottom {
@@ -265,10 +335,16 @@ input:checked {
   align-items: center;
 }
 
-
-
 .hidden {
   display: none;
+}
+
+.no-show {
+  top: -350px;
+}
+
+.opacity {
+  opacity: 0;
 }
 
 @keyframes rotateWhite {
@@ -335,9 +411,6 @@ input:checked {
   }
 }
 
-
-
-
 @keyframes moveLeft {
   0% {
     opacity: 0;
@@ -347,8 +420,6 @@ input:checked {
   30% {
     color: var(--remove-stronger);
   }
-
-
 
   50% {
     opacity: .7;
