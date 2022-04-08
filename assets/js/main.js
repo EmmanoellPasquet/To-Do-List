@@ -82,7 +82,7 @@ function createTask(taskText) {
     counter.classList.remove('hidden');
     list.innerHTML = taskText;
 
-    tasks.appendChild(list);
+    tasks.prepend(list);
     list.prepend(checkbox);
 
     clearInput();
