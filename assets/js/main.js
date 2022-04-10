@@ -12,8 +12,6 @@ const popup = document.querySelector('.pop-up');
 const popClose = document.querySelector('.popClose');
 const background = document.querySelector('.background');
 
-
-
 popClose.addEventListener('click', () => {
     popup.classList.add('no-show')
     background.classList.add('hidden')
@@ -89,6 +87,10 @@ function createTask(taskText) {
     createDelButton(list);
     saveTasks();
 }
+
+let scrollHeight = Math.max(
+    document.body.offsetHeight, document.documentElement.offsetHeight
+);
 
 function saveTasks() {
     const tasksToBeSaved = tasks.querySelectorAll('li');
@@ -224,7 +226,62 @@ function moveTasks() {
 
 }
 
+function footerAnimate() {
+    const text1 = document.querySelector('.gitText');
+    const text2 = document.querySelector('.linkedinText');
+    const iconGit = document.querySelector('.iconGit');
+    const iconLinkedin = document.querySelector('.iconLinkedin');
+    const winSize = window.innerWidth;
 
+    text1.innerHTML = text1.textContent.replace(/\S/g, "<span>$&</span>");
+    text2.innerHTML = text2.textContent.replace(/\S/g, "<span>$&</span>");
+
+    const element = document.querySelectorAll('span');
+
+    for (let i = 0; i < element.length; i++) {
+        element[i].style.transform = "rotate(" + i * 18 + "deg)"
+    }
+
+    const show = function showIcon(e) {
+        const el = e.type;
+        const test = this.children;
+
+        if (el === 'mouseover' || el === 'mouseout') {
+            for (let i = 0; i < test.length; i++) {
+                test[i].classList.contains('hidden') ? test[i].classList.remove('hidden') : test[i].classList.add('hidden');
+            }
+        }
+    }
+
+    winSize < 600 ? text1.classList.remove('hidden') + text2.classList.remove('hidden') : '';
+
+    iconGit.addEventListener('mouseover', show, false);
+    iconLinkedin.addEventListener('mouseover', show, false);
+    iconGit.addEventListener('mouseout', show, false);
+    iconLinkedin.addEventListener('mouseout', show, false);
+}
+
+function overflow() {
+
+    const header = document.querySelector('h1');
+    const titleIcon = document.querySelector('.titleIcon');
+    const container = document.querySelector('.container');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY) {
+            header.classList.add('header');
+            titleIcon.classList.add('imgSize');
+            container.classList.add('scroll');
+        } else {
+            header.classList.remove('header');
+            titleIcon.classList.remove('imgSize');
+            container.classList.remove('scroll');
+        }
+    });
+}
+
+overflow();
+footerAnimate();
 savedTasks();
 selectAll();
 
