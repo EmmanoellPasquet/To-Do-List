@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Easy List</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+</head>
+
+<body>
+
+  <section class="container">
+    <h1>Easy List<img class="titleIcon" src="assets/img/titleIcon.png" alt="List Icon title"></h1>
+    <div class="innerContainer">
+      <div class="inputContainer">
+        <input placeholder="Type your task here" class="newTask-input" type="text">
+        <button class="btn-addTask"><i class="fa-solid fa-plus fa-beat-fade"></i></i></i></button>
+      </div>
+      <div class="taskList">
+        <div class="counter opacity">
+          <p class="totalTasks"></p>
+          <p class="partialTasks"></p>
+          <p class="finishedTasks"></p>
+        </div>
+
+        <ul class="tasks"></ul>
+
+        <div class="btn-bottom">
+          <label class="checkboxOuter hidden"><input type="checkbox" class="globalSelector"></label>
+          <button class="deleteAll hidden" title="Discard all tasks"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="background hidden"></div>
+  <div class="pop-up no-show">
+    <p> Congrats you finished all of your tasks!</p>
+    <button class="popClose">Ok</button>
+  </div>
+
+  <!-- FOOTER START -->
+  <footer class="footer">
+    <div class="icons">
+      <div class="iconGit">
+        <a href="https://github.com/EmmanoellPasquet/To-Do-List" class="fa-brands fa-github"></a>
+        <p class="gitText hidden">Show-me-the-code!</p>
+      </div>
+      <div class="iconLinkedin">
+        <a href="https://www.linkedin.com/in/emmanoellpasquet/" class="fa-brands fa-linkedin"></a>
+        <p class="linkedinText hidden">Contact-me!</p>
+      </div>
+    </div>
+  </footer>
+  <!-- FOOTER END -->
+
+  <script src="./assets/js/main.js"></script>
+  <script src="https://kit.fontawesome.com/a14a5540ab.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
