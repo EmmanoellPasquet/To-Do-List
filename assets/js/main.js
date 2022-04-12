@@ -51,34 +51,37 @@ function createList() {
     return list;
 }
 
-function createCheckbox() {
+function createCheckbox(checked = false) {
 
     const checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
     checkbox.setAttribute('class', 'checkbox');
     checkbox.setAttribute('title', 'Done!');
 
+    checkbox.checked = checked;
+
     checkbox.addEventListener('change', (e) => {
         const el = e.target;
 
-        if (el.checked) {
-            el.parentElement.classList.add('checked');
-        } else {
-            el.parentElement.classList.remove('checked');
-        }
+        el.checked ? el.parentElement.classList.add('checked') : el.parentElement.classList.remove('checked');
+
         moveTasks();
         taskCounter();
+        saveTasks();
     });
 
     return checkbox;
 }
 
-function createTask(taskText) {
-    const checkbox = createCheckbox();
+function createTask(taskName, taskValue = false) {
+
     const list = createList();
+    const checkbox = createCheckbox(taskValue);
+
+    taskValue === true ? list.classList.add('checked') : null;
 
     counter.classList.remove('hidden');
-    list.innerHTML = taskText;
+    list.innerHTML = taskName;
 
     tasks.prepend(list);
     list.prepend(checkbox);
@@ -94,11 +97,15 @@ let scrollHeight = Math.max(
 
 function saveTasks() {
     const tasksToBeSaved = tasks.querySelectorAll('li');
+    const checkBoxes = tasks.querySelectorAll('input[type=checkbox]')
     const listOfTasks = [];
+    const statusOfTask = [];
 
-    for (let i of tasksToBeSaved) {
-        let textOfTask = i.innerText;
-        listOfTasks.push(textOfTask);
+    for (let i = 0; i < tasksToBeSaved.length; i++) {
+        listOfTasks.push({
+            label: tasksToBeSaved[i].innerText,
+            value: (checkBoxes[i].checked) ? true : false
+        });
     }
 
     const tasksJSON = JSON.stringify(listOfTasks);
@@ -107,13 +114,20 @@ function saveTasks() {
     taskCounter();
 }
 
+
 function savedTasks() {
     const taskList = localStorage.getItem('taskList');
-    const taskList2 = taskList ? JSON.parse(taskList) : [];
+    const taskList2 = JSON.parse(taskList);
 
-    for (let i of taskList2) {
-        createTask(i);
+    if (taskList2) {
+        for (let task of taskList2) {
+            createTask(task.label, task.value)
+            if (task.value) {
+                task.value === taskList2.length - 1;
+            }
+        }
     }
+    moveTasks()
 }
 
 function createDelButton(list) {
@@ -200,16 +214,17 @@ function selectAll() {
                 arrayList.push(fullList[i]);
                 arrayList[i].classList.remove('checked');
             }
+
         }
         taskCounter();
         moveTasks();
-
+        saveTasks();
     });
 }
 
 deleteAll.addEventListener('click', () => {
     deleteTasks();
-    taskCounter()
+    taskCounter();
 });
 
 function moveTasks() {
@@ -218,12 +233,11 @@ function moveTasks() {
 
     for (let i = 0; i < arr.length; i++) {
         if (!arr[i].classList.contains('checked')) {
-            arr[i].parentNode.insertBefore(arr[i], arr[i].parentNode.firstChild)
+            arr[i].parentNode.insertBefore(arr[i], arr[i].parentNode.firstChild);
         } else {
-            arr[i].parentNode.insertBefore(arr[i], arr[i].parentNode.lastChild)
+            arr[i].parentNode.insertBefore(arr[i], arr[i].parentNode.lastChild);
         }
     }
-
 }
 
 function footerAnimate() {
